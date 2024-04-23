@@ -3,6 +3,7 @@ import './Selection.css';
 
 function Selection() {
   const [serviceLib, setServiceLib] = useState('');
+  const [newLibName, setNewLibName] = useState('');
   const [serviceName, setServiceName] = useState('');
   const [vcpu, setVCPU] = useState('');
   const [ram, setRAM] = useState('');
@@ -20,7 +21,7 @@ function Selection() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          serviceLib,
+          serviceLib: serviceLib === 'New' ? newLibName : serviceLib,
           serviceName,
           vcpu,
           ram,
@@ -36,19 +37,35 @@ function Selection() {
       console.error('Error submitting form:', error);
     }
   };
+  const handleServiceLibChange = (e) => {
+    const selectedLib = e.target.value;
+    setServiceLib(selectedLib);
+    if (selectedLib !== 'New') {
+      setNewLibName(''); // Reset the new library name when another option is selected
+    }
+  };
 
   return (
     <form className="service-form" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="serviceLib">Service Library:</label>
-        <select id="serviceLib" value={serviceLib} onChange={(e) => setServiceLib(e.target.value)}>
+        <select id="serviceLib" value={serviceLib} onChange={handleServiceLibChange}>
           <option value="">Select Service Library</option>
           <option value="AUSF">AUSF</option>
           <option value="UDM">UDM</option>
           <option value="EIR">EIR</option>
           <option value="HSS">HSS</option>
-          <option value="Support">Supporting Lib</option>
+          <option value="New">New</option>
         </select>
+        {serviceLib === 'New' && (
+          <input
+            type="text"
+            id="newLibName"
+            value={newLibName}
+            onChange={(e) => setNewLibName(e.target.value)}
+            placeholder="Enter New Library Name"
+          />
+        )}
       </div>
       <div>
         <label htmlFor="serviceName">Service Name:</label>

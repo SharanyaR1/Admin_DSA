@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 import './Upload.css';
 
 function Upload() {
@@ -16,8 +18,24 @@ function Upload() {
   const handleDialogSubmit = async (e) => {
     e.preventDefault();
     // Process DockerHub credentials and image upload here
-    console.log('Submitting to DockerHub with ID:', dockerCredentials.id, 'and password:', dockerCredentials.password);
+    //console.log('Submitting to DockerHub with ID:', dockerCredentials.id, 'and password:', dockerCredentials.password);
     // Clear form and status
+    try {
+      // Send the image data and DockerHub credentials to the backend
+      const formData = new FormData();
+      formData.append('image', image.data);
+      formData.append('dockerhubUsername', dockerCredentials.id);
+      formData.append('dockerhubPassword', dockerCredentials.password);
+      await axios.post('http://127.0.0.1:5000/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setStatus('Image uploaded successfully!');
+    } catch (error) {
+      setStatus('Error uploading image.');
+      console.error('Error uploading image:', error);
+    }
     setImage({ preview: '', data: '' });
     setStatus('');
     setShowDialog(false);
