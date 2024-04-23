@@ -1,0 +1,68 @@
+.upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 65%; /* Set the height of the container to full viewport height */
+    width: 95%;
+  }
+  
+  .upload form {
+    margin-top: 20px; /* Add some margin between the file input and the button */
+  }
+  
+  .upload img {
+    margin-bottom: 20px; /* Add some margin below the image */
+  }
+  .dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dialog {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .dialog h2 {
+    margin-top: 0;
+  }
+
+  .dialog label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .dialog input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .dialog-buttons button {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  .dialog-buttons button:first-child {
+    margin-left: 0;
+  }
+
+
+  
